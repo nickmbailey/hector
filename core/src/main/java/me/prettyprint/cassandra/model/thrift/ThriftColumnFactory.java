@@ -12,20 +12,38 @@ public class ThriftColumnFactory implements ColumnFactory {
   @Override
   public <N, V> HColumn<N, V> createColumn(N name, V value,
       Serializer<N> nameSerializer, Serializer<V> valueSerializer) {
-    return new HColumnImpl<N,V>(name, value, HFactory.createClock(), nameSerializer,
-        valueSerializer);
+    return HFactory.createColumn(name, value, nameSerializer, valueSerializer);
   }
 
   @Override
   public <N, V> HColumn<N, V> createColumn(N name, V value, long clock,
       Serializer<N> nameSerializer, Serializer<V> valueSerializer) {
-    return new HColumnImpl<N,V>(name, value, clock, nameSerializer,
-        valueSerializer);
+    return HFactory.createColumn(name, value, clock, nameSerializer, valueSerializer);
+  }
+
+  @Override
+  public <N, V> HColumn<N, V> createColumn(N name, V value) {
+    return HFactory.createColumn(name, value);
+  }
+
+  @Override
+  public <N, V> HColumn<N, V> createColumn(N name, V value, long clock) {
+    return HFactory.createColumn(name, value, clock);
+  }
+
+  @Override
+  public <N, V> HColumn<N, V> createColumn(N name, V value, int ttl) {
+    return HFactory.createColumn(name, value, ttl);
+  }
+
+  @Override
+  public <N, V> HColumn<N, V> createColumn(N name, V value, long clock, int ttl) {
+    return HFactory.createColumn(name, value, clock, ttl);
   }
 
   @Override
   public HColumn<String, String> createStringColumn(String name, String value) {
-    return createColumn(name, value, StringSerializer.get(), StringSerializer.get());
+    return HFactory.createColumn(name, value);
   }
 
 
